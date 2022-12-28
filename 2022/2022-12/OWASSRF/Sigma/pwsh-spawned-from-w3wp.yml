@@ -1,0 +1,10 @@
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        - Image|endswith: '\powershell.exe'
+        - ParentImage|endswith: '\w3wp.exe'
+condition: selection
+
+# Base64 encoded powershell is a clear indication of OWASSRF activity
