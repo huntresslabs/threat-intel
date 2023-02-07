@@ -1,0 +1,17 @@
+title: Process Spawned From GoAnywhere Tomcat
+authors: Matt Anderson, Anthony Smith, Kris Luzadre
+description: Detects processes spawning from tomcat located in the GoAnywhere folder
+references:
+    - update with blog link
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        - ParentImage|endswith: "\\Goanywhere\\tomcat\\bin\\tomcat.exe"
+    filter:
+        - Image|endswith: "\\conhost.exe"
+    condition: selection and not filter
+level: high
+falsepositives:
+    - Unknown
