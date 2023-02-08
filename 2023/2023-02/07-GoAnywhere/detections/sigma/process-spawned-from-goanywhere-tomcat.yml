@@ -2,7 +2,7 @@ title: Process Spawned From GoAnywhere Tomcat
 authors: Matt Anderson, Anthony Smith, Kris Luzadre
 description: Detects processes spawning from tomcat located in the GoAnywhere folder
 references:
-    - update with blog link
+    - https://www.huntress.com/blog/investigating-intrusions-from-intriguing-exploits
 logsource:
     category: process_creation
     product: windows
