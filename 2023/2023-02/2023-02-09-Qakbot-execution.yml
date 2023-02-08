@@ -1,0 +1,28 @@
+title: Suspicious Qakbot Activity - Feb 2023
+authors: Matthew Brennan
+description: 
+references:
+    - https://github.com/embee-research/IOCS/blob/main/2023-02-09-Qakbot.txt
+    - https://twitter.com/pr0xylife/status/1623378563880652826
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    powershell:
+        ParentImage|endswith: '\cmd.exe'
+        Image|endswith: '\powershell.exe'
+    cmd_args:
+        ParentCommandLine|contains:
+            - 'exported's
+            - 'open.cmd'
+
+    rundll32:
+        Image|endswith: '\rundll32.exe'
+        CommandLine|contains: 'ProgramData'
+        ParentImage|endswith: '\cmd.exe'
+        ParentCommandLine|contains: 'public'
+
+    condition: (powershell and cmd_args) or rundll32
+level: high
+falsepositives:
+    - Unknown
