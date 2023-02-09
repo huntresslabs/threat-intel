@@ -13,7 +13,7 @@ detection:
         Image|endswith: '\powershell.exe'
     cmd_args:
         ParentCommandLine|contains:
-            - 'exported's
+            - 'exported'
             - 'open.cmd'
 
     rundll32:
