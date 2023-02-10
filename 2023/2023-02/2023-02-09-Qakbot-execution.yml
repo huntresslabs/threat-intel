@@ -15,14 +15,19 @@ detection:
         ParentCommandLine|contains:
             - 'exported'
             - 'open.cmd'
+            - 'GoodOldFile.bat'
 
     rundll32:
         Image|endswith: '\rundll32.exe'
         CommandLine|contains: 'ProgramData'
         ParentImage|endswith: '\cmd.exe'
         ParentCommandLine|contains: 'public'
+    
+    renamed:
+        Image|endswith: '\t.exe'
+        Image|contains: 'Public'
 
-    condition: (powershell and cmd_args) or rundll32
+    condition: (powershell and cmd_args) or rundll32 or renamed
 level: high
 falsepositives:
     - Unknown
