@@ -1,0 +1,21 @@
+title: LightSpy MacOS Malware
+id: 75d6d6fc-026f-11ef-aa62-f23ada0a3aed
+status: test
+description: Detects the creation of malicious files in the Shared directory.
+author: Stuart Ashenbrenner
+references:
+  - https://huntress.com/blog/lightspy-malware-variant-targeting-macos
+date: 2024/04/24
+logsource:
+  category: file_event
+  product: macos
+detection:
+  selection0:
+    TargetFilename|contains: '/Users/Shared/update.app'
+  condition: selection0
+falsepositives:
+  - None observed
+level: high
+tags:
+  - attack.exfiltration
+  - attack.t1041
