@@ -4,6 +4,7 @@ status: test
 description: Detect use of processes with no name (".exe"), which can be used to evade Image-based detections.
 references:
     - https://attack.mitre.org/tactics/TA0005/
+    - https://www.huntress.com/blog/fake-browser-updates-lead-to-boinc-volunteer-computing-software
 author: Matt Anderson (Huntress)
 date: 2024/07/15
 tags:
@@ -13,7 +14,7 @@ logsource:
     product: windows
 detection:
     selection:
-        Image: '.exe'
+        Image|endswith: '.exe'
     condition: selection
 falsepositives:
     - Legitimate software (rare)

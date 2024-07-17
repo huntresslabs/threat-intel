@@ -4,6 +4,7 @@ status: test
 description: Detects the use of software that is signed by the University of California, Berkeley.  This indicates it may be related to BOINC software and can be used maliciously if unauthorized.
 references:
     - https://boinc.berkeley.edu/
+    - https://www.huntress.com/blog/fake-browser-updates-lead-to-boinc-volunteer-computing-software
 author: Matt Anderson (Huntress)
 date: 2024/07/15
 tags:

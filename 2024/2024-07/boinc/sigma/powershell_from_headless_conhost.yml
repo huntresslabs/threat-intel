@@ -4,6 +4,7 @@ status: test
 description: Detects the use of powershell commands from headless conhost window. The "--headless" flag hides the windows from the user upon execution.
 references:
     - https://attack.mitre.org/tactics/TA0005/
+    - https://www.huntress.com/blog/fake-browser-updates-lead-to-boinc-volunteer-computing-software
 author: Matt Anderson (Huntress)
 date: 2024/07/15
 tags:
@@ -15,7 +16,7 @@ logsource:
     product: windows
 detection:
     selection:
-        ImageName: 'conhost.exe'
+        Image|endswith: '\conhost.exe'
         CommandLine|contains|all:
             - "--headless"
             - "powershell"
