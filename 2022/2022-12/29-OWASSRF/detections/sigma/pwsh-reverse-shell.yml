@@ -1,15 +1,26 @@
+title: Pwsh-reverse-shell
+id: 19bab1e3-73a8-4330-86a5-cc339c511c18
+status: experimental
+description: Detects PowerShell reverse shell
+references:
+    - Internal Research
+author: Huntress DE&TH Team
+date: 2022/12/29
 logsource:
-  category: process_creation
-  product: windows
+    category: process_creation
+    product: windows
 detection:
-  condition: 1 of selection*
-  selection0:
-    Image|endswith: '\powershell.exe'
-    CommandLine|contains|all:
-      - "net.sockets.tcpclient"
-      - "io.streamwriter"
-  selection1:
-    Image|endswith: '\powershell.exe'
-    CommandLine|contains|all:
-      - "net.sockets.tcpclient"
-      - "getstream"
+    selection_pwsh:
+        Image|endswith: '\powershell.exe'
+    selection_cli_1:
+        CommandLine|contains|all:
+            - "net.sockets.tcpclient"
+            - "io.streamwriter"
+    selection_cli_2:
+        CommandLine|contains|all:
+            - "net.sockets.tcpclient"
+            - "getstream"
+    condition: selection_pwsh and 1 of selection_cli_*
+falsepositives:
+    - Unknown
+level: medium
