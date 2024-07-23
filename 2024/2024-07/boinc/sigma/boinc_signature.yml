@@ -7,6 +7,7 @@ references:
     - https://www.huntress.com/blog/fake-browser-updates-lead-to-boinc-volunteer-computing-software
 author: Matt Anderson (Huntress)
 date: 2024/07/15
+modified: 2024/07/23
 tags:
     - attack.execution
     - attack.defense_evasion
@@ -17,7 +18,7 @@ logsource:
 detection:
     selection:
         Description: 'University of California, Berkeley'
-    condition: selection and not filter
+    condition: selection
 falsepositives:
     - This software can used for legitimate purposes when installed intentionally.
 level: informational
