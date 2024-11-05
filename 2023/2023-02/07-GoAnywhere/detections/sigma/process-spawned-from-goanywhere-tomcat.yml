@@ -1,8 +1,12 @@
 title: Process Spawned From GoAnywhere Tomcat
-authors: Matt Anderson, Anthony Smith, Kris Luzadre
+id: 3667b97f-e86c-434b-b70d-88ccaee6854b
+status: test
 description: Detects processes spawning from tomcat located in the GoAnywhere folder
 references:
     - https://www.huntress.com/blog/investigating-intrusions-from-intriguing-exploits
+authors: Matt Anderson, Anthony Smith, Kris Luzadre
+tags:
+    - attack.execution
 logsource:
     category: process_creation
     product: windows
@@ -12,6 +16,6 @@ detection:
     filter:
         - Image|endswith: "\\conhost.exe"
     condition: selection and not filter
-level: high
 falsepositives:
     - Unknown
+level: high
