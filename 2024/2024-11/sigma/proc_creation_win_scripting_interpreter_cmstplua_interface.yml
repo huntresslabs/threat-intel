@@ -25,17 +25,19 @@ detection:
   selection_parent:
     ParentImage|endswith: '\dllhost.exe'
     ParentCommandLine|contains: 'Processid:{3E5FC7F9-9A51-4367-9063-A120244FBEC7}'
-  selection_system_binary:
+  selection_interpreter:
     - Image|endswith:
         - '\cmd.exe'
         - '\powershell.exe'
         - '\wscript.exe'
         - '\pwsh.exe'
+        - '\powershell_ise.exe'
     - OriginalFileName:
         - 'Cmd.Exe'
         - 'PowerShell.EXE'
         - 'pwsh.dll'
         - 'wscript.exe'
+        - 'powershell_ise.EXE'
   condition: all of selection_*
 falsepositives:
 - Some legitimate applications may use this occasionally
