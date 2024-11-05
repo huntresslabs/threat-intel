@@ -1,0 +1,47 @@
+title: System Binary Proxy Execution Using CMSTPLUA COM Interface
+id: b77542ea-151a-4c9d-b2eb-8b39adfbadea
+status: experimental
+description: Detects the use of a CMSTPLUA elevated COM Interface to execute a system binary that can be used for proxy execution. Using this COM Interface bypasses UAC, and
+  has been used by numerous threat actors to execute ransomware and other malware.
+author: Matt Anderson (Huntress)
+references:
+- https://www.securityinbits.com/malware-analysis/uac-bypass-analysis-stage-1-ataware-ransomware-part-2/
+- https://gist.github.com/hfiref0x/196af729106b780db1c73428b5a5d68d
+- https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-075a
+- https://www.varonis.com/blog/blackcat-ransomware
+- https://www.elastic.co/security-labs/exploring-windows-uac-bypasses-techniques-and-detection-strategies
+date: 2024-11-01
+tags:
+  - attack.defense-evasion
+  - attack.privilege-escalation
+  - attack.execution
+  - attack.t1548.002
+  - attack.t1218
+  - attack.t1559.001
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_parent:
+    ParentImage|endswith: '\dllhost.exe'
+    ParentCommandLine|contains: 'Processid:{3E5FC7F9-9A51-4367-9063-A120244FBEC7}'
+  selection_system_binary:
+    Image|endswith:
+      - '\rundll32.exe'
+      - '\regsvr32.exe'
+      - '\mshta.exe'
+      - '\msiexec.exe'
+      - '\hh.exe'
+      - '\control.exe'
+      - '\cmstp.exe'
+      - '\installutil.exe'
+      - '\odbcconf.exe'
+      - '\regsvcs.exe'
+      - '\regasm.exe'
+      - '\verclsid.exe'
+      - '\mavinject.exe'
+      - '\mmc.exe'
+  condition: all of selection_*
+falsepositives:
+- Some legitimate applications may use this occasionally
+level: high
