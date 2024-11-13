@@ -1,0 +1,30 @@
+title: Windows Defender Threat Protection Settings Disabled
+id: ad44351e-89c4-4b1c-8cb0-676c55bf11ce
+status: stable
+description: Detects when a user disables Defender settings without using the Settings GUI.  This can be used by adversaries to impair defenses.
+references:
+    - https://www.huntress.com/blog/lolbin-to-inc-ransomware
+author: Alden Schmidt, Matt Anderson
+date: 2024-08-20
+tags:
+    - attack.defense-evasion
+    - attack.t1562
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\SystemSettingsAdminFlows.exe'
+        - OriginalFileName: 'SystemSettingsAdminFlows.EXE'
+    filter_parent_img:
+        - ParentImage|endswith: '\SystemSettings.exe'
+    selection_cli:
+        CommandLine|contains:
+            - 'Defender DisableEnhancedNotifications 1'
+            - 'Defender SubmitSamplesConsent 0'
+            - 'Defender SpynetReporting 0'
+            - 'Defender RTP 1'
+    condition: all of selection_* and not filter_parent_img
+falsepositives:
+    - May be turned off by a user or admin for legitimate purposes.
+level: medium
