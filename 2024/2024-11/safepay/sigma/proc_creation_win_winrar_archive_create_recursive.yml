@@ -1,0 +1,33 @@
+title: Create WinRAR Archive - Recurse Subfolders
+id: 116f209c-43a5-4581-a491-86dbdd3f57ec
+status: experimental
+description: Detects the use of winrar.exe commands to recurse subfolders. This may indicate a threat actor looking to archive all files within a directory without specificity, which is highly uncommon.
+references:
+    - https://ss64.com/bash/rar.html
+    - https://documentation.help/WinRAR/HELPSwV.htm
+    - https://www.welivesecurity.com/2020/12/02/turla-crutch-keeping-back-door-open/
+    - https://www.cybereason.com/blog/research/operation-soft-cell-a-worldwide-campaign-against-telecommunications-providers
+    - https://cloud.google.com/blog/topics/threat-intelligence/turla-galaxy-opportunity/
+author: Matt Anderson, Craig Sweeney (Huntress)
+date: 2024-11-13
+tags:
+    - attack.collection
+    - attack.t1560.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith:
+            - \rar.exe
+            - \winrar.exe
+        - OriginalFileName: WinRAR.exe
+    selection_other:
+        CommandLine|contains|all:
+            - ' -r'
+            - ' a '
+    condition: all of selection_*
+falsepositives:
+    - Legitimate use of Winrar command line version
+    - Other command line tools or software that use these flags
+level: medium

@@ -1,0 +1,32 @@
+title: Create WinRAR Archive - Specify Volume Size
+id: 70580f07-a998-419f-bb5d-2a2fc4a87f7b
+status: experimental
+description: Detects the use of winrar.exe commands to create an archive with a specific volume size. This may indicate a threat actor increasing the size of the volume to prevent making separate files.
+references:
+    - https://ss64.com/bash/rar.html
+    - https://documentation.help/WinRAR/HELPSwV.htm
+    - https://blogs.blackberry.com/en/2024/07/akira-ransomware-targets-the-latam-airline-industry
+    - https://www.welivesecurity.com/2020/12/02/turla-crutch-keeping-back-door-open/
+author: Matt Anderson, Craig Sweeney (Huntress)
+date: 2024-11-13
+tags:
+    - attack.collection
+    - attack.t1560.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith:
+            - \rar.exe
+            - \winrar.exe
+        - OriginalFileName: WinRAR.exe
+    selection_other:
+        CommandLine|contains|all:
+            - ' -v*'
+            - ' a '
+    condition: all of selection_*
+falsepositives:
+    - Legitimate use of Winrar command line version
+    - Other command line tools or software that use these flags
+level: high
