@@ -3,7 +3,7 @@ id: 87c21d4e-e312-4f0b-ab86-f9b8e60dd68e
 status: experimental
 description: Detects when a user disables Defender settings via GUI.  This can be used by adversaries to impair defenses.
 references:
-    - Internal Research
+    - http://www.huntress.com/blog/its-not-safe-to-pay-safepay
     - https://www.huntress.com/blog/lolbin-to-inc-ransomware
 author: Matt Anderson (Huntress)
 date: 2024-11-01
