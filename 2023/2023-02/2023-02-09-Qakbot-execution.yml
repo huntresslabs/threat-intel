@@ -1,33 +1,33 @@
 title: Suspicious Qakbot Execution (Rundll32/Powershell) - Feb 2023
-authors: Matthew Brennan
-description: 
+id: 848b7a9b-e509-4817-bf43-acffa1eec4d2
+status: test
+description: Detects suspicious Qakbot execution activity, observed on february 2023.
 references:
     - https://github.com/embee-research/IOCS/blob/main/2023-02-09-Qakbot.txt
     - https://twitter.com/pr0xylife/status/1623378563880652826
+authors: Matthew Brennan
+tags:
+    - attack.execution
 logsource:
     category: process_creation
     product: windows
 detection:
-    powershell:
+    selection_powershell:
         ParentImage|endswith: '\cmd.exe'
-        Image|endswith: '\powershell.exe'
-    cmd_args:
         ParentCommandLine|contains:
             - 'exported'
             - 'open.cmd'
             - 'GoodOldFile.bat'
-
-    rundll32:
+        Image|endswith: '\powershell.exe'
+    selection_rundll32:
         Image|endswith: '\rundll32.exe'
         CommandLine|contains: 'ProgramData'
         ParentImage|endswith: '\cmd.exe'
         ParentCommandLine|contains: 'public'
-    
-    renamed:
+    selection_renamed:
         Image|endswith: '\t.exe'
         Image|contains: 'Public'
-
-    condition: (powershell and cmd_args) or rundll32 or renamed
-level: high
+    condition: 1 of selection_*
 falsepositives:
     - Unknown
+level: high
