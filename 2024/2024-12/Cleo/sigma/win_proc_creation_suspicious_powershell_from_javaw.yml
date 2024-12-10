@@ -3,7 +3,8 @@ id: a0ec945f-2328-40e9-96f6-27dadf72861b
 status: experimental
 description: Detects Javaw spawning suspicious powershell commands. This has been observed as possible post-exploitation activity of Cleo software.
 author: Chad Hudson, Matt Anderson
-references: []
+references: 
+    - https://www.huntress.com/blog/threat-advisory-oh-no-cleo-cleo-software-actively-being-exploited-in-the-wild
 date: 2024/12/09
 logsource:
     category: process_creation
