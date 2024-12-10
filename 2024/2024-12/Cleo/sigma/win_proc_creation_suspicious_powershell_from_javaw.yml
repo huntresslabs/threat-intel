@@ -1,6 +1,6 @@
 title: Javaw Spawning Suspicious Powershell Commands
 id: a0ec945f-2328-40e9-96f6-27dadf72861b
-status: stable
+status: experimental
 description: Detects Javaw spawning suspicious powershell commands. This has been observed as possible post-exploitation activity of Cleo software.
 author: Chad Hudson, Matt Anderson
 references: []
