@@ -1,19 +1,25 @@
 title: ScreenConnect User Database Modification - Sysmon
 id: 1a821580-588b-4323-9422-660f7e131020
 status: experimental
-description: This detects file modifications to the temporary xml user database file indicating local user modification in the ScreenConnect server. This will occur during exploitation of the ScreenConnect Authentication Bypass vulnerability (CVE-2024-1709) in versions <23.9.8, but may also be observed when making legitimate modifications to local users or permissions. This requires an Advanced Auditing policy to log a successful Windows Event ID 4663 events and with a SACL set on the directory.
+description: |
+    This detects file modifications to the temporary xml user database file indicating local user modification in the ScreenConnect server.
+    This will occur during exploitation of the ScreenConnect Authentication Bypass vulnerability (CVE-2024-1709) in versions <23.9.8, but may also be observed when making legitimate modifications to local users or permissions.
+    This requires an Advanced Auditing policy to log a successful Windows Event ID 4663 events and with a SACL set on the directory.
 references:
     - https://www.connectwise.com/company/trust/security-bulletins/connectwise-screenconnect-23.9.8
     - https://www.cve.org/CVERecord?id=CVE-2024-1709
     - https://www.huntress.com/blog/a-catastrophe-for-control-understanding-the-screenconnect-authentication-bypass
 author: Huntress DE&TH Team
 date: 2024/02/21
+modified: 2024/07/23
+tags:
+    - cve.2024.1709
 logsource:
     product: windows
     category: file_event
+    definition: 'Requirements: The Advanced Auditing policy is required to log a successful Windows Event ID 4663 events and with a SACL set on the directory.'
 detection:
     selection:
-        EventID: 11
         TargetFilename|endswith: '.xml'
         TargetFilename|contains|all:
             - 'Temp'
@@ -23,5 +29,3 @@ detection:
 falsepositives:
     - This will occur legitimately as well and will result in some benign activity.
 level: medium
-tags:
-    - cve.2024.1709

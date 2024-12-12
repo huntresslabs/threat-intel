@@ -1,16 +1,22 @@
 title: PaperCut MF/NG Vulnerability
-authors: Huntress DE&TH Team
+id: 4f315700-6fb5-4284-bfd6-eb8dc9f0928f
+status: test
 description: Detects suspicious code execution from vulnerable PaperCut versions MF and NG
+references:
+    - https://www.huntress.com/blog/critical-vulnerabilities-in-papercut-print-management-software
+author: Huntress DE&TH Team
+tags:
+    - attack.execution
 logsource:
   category: process_creation
   product: windows
 detection:
-  selection:
-    ParentImage|endswith: "\\pc-app.exe"
-    Image|endswith: 
-      - "\\cmd.exe"
-      - "\\powershell.exe"
-  condition: selection
-level: high
+    selection:
+        ParentImage|endswith: "\\pc-app.exe"
+        Image|endswith:
+            - "\\cmd.exe"
+            - "\\powershell.exe"
+    condition: selection
 falsepositives:
     - Expected admin activity
+level: high

@@ -1,34 +1,33 @@
 title: ActiveMQ Exploitation CVE-2023-46604
 id: 73eff0f0-e0fa-4a28-8b71-6287391cf0a2
-description: Apache ActiveMQ server is affected by a critical vulnerability, CVE-2023-46604. Evidence of exploitation has included suspicious child processes including cmd.exe and curl.exe used to download and execute files. This process normally has very few child processes.
 status: experimental
-date: 2023/11/02
-author: Huntress DE&TH Team
+description: |
+    Apache ActiveMQ server is affected by a critical vulnerability, CVE-2023-46604. Evidence of exploitation has included suspicious child processes including cmd.exe and curl.exe used to download and execute files. This process normally has very few child processes.
 references:
   - https://www.rapid7.com/blog/post/2023/11/01/etr-suspected-exploitation-of-apache-activemq-cve-2023-46604/
   - https://activemq.apache.org/security-advisories.data/CVE-2023-46604
   - https://nvd.nist.gov/vuln/detail/CVE-2023-46604
-
+author: Huntress DE&TH Team
+date: 2023/11/02
+tags:
+    - attack.initial_access
+    - attack.execution
+    - attack.t1190
+    - attack.t1059
 logsource:
     category: process_creation
     product: windows
 detection:
-    Selection1:
-      ParentImage|endswith:
-        - '\java.exe'
-      ParentCommandLine|contains:
-        - '\apache\'
-        - 'ActiveMQ'
-    Filter:
-      Image|endswith:
-        - '\conhost.exe'
-        - '\java.exe'
-    condition: Selection1 and not Filter
+    selection:
+        ParentImage|endswith: '\java.exe'
+        ParentCommandLine|contains:
+            - '\apache\'
+            - 'ActiveMQ'
+    filter:
+        Image|endswith:
+            - '\conhost.exe'
+            - '\java.exe'
+    condition: Selection1 and not filter
 falsepositives:
     - Unknown
 level: high
-tags:
-  - attack.initial_access
-  - attack.execution
-  - attack.t1190
-  - attack.t1059
