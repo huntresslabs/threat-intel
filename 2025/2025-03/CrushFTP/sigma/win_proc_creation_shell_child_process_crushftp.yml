@@ -21,11 +21,7 @@ detection:
       - '\powershell_ise.exe'
   crushftp_parent:
     ParentImage|endswith: '\crushftpservice.exe'
-  filter:
-    - Image:
-      - nzdeapp.exe
-      - conhost.exe
-  condition: shell_process and crushftp_parent and not filter
+  condition: shell_process and crushftp_parent
 falsepositives:
   - Unknown
 level: medium
