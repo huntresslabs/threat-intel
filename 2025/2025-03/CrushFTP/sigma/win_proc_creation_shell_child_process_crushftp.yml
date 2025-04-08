@@ -1,0 +1,35 @@
+title: Shell Process from CrushFTP
+id: 459628e3-1b00-4e9b-9e5b-7da8961aea35
+status: experimental
+description: Detects execution of a shell process with CrushFTP as a parent process. May indicate post-exploitation of a vulnerability in CrushFTP.
+author: Craig Sweeney, Matt Anderson, Jose Oregon, Tim Kasper, Faith Stratton, Samantha Shaw
+references:
+  - https://nvd.nist.gov/vuln/detail/CVE-2025-2825
+  - https://www.crushftp.com/crush11wiki/Wiki.jsp?page=Update
+  - https://outpost24.com/blog/crushftp-auth-bypass-vulnerability/
+  - https://attackerkb.com/topics/k0EgiL9Psz/cve-2025-2825/rapid7-analysis
+  - https://projectdiscovery.io/blog/crushftp-authentication-bypass
+date: 2025-04-03
+logsource:
+    category: process_creation
+    product: windows
+detection:
+  shell_process:
+    Image|endswith:
+      - '\cmd.exe'
+      - '\powershell.exe'
+      - '\powershell_ise.exe'
+  crushftp_parent:
+    ParentImage|endswith: '\crushftpservice.exe'
+  condition: shell_process and crushftp_parent
+falsepositives:
+  - Unknown
+level: medium
+tags:
+    - attack.initial_access
+    - attack.execution
+    - attack.t1059.001
+    - attack.t1059.003
+    - attack.t1190
+    - attack.ta0001
+    - attack.ta0002
