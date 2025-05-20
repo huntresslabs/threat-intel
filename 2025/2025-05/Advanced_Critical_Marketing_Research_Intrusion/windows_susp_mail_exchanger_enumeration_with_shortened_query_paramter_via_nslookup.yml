@@ -1,0 +1,23 @@
+title: Mail Exchanger Enumeration via Nslookup with a Shortened Query Parameter
+id: 11b8251d3-6267-4817-8d70-f001b6952c4b
+status: experimental
+description: Detects the use of Nslookup to enumerate mail servers while using a shortened query type parameter “-q”
+references:
+    - https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/nslookup
+author: Craig Sweeney
+date: 2025-05-27
+tags:
+    - attack.discovery
+    - attack.T1016
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        Image|endswith: ’\nslookup.exe’
+    selection_other:
+        CommandLine|contains: ‘-q=mx’
+    condition: all of selection_*
+falsepositives:
+    - Legitimate usage by System Administrators
+level: low
