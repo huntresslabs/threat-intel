@@ -4,6 +4,7 @@ status: experimental
 description: Detects the update of the default scheduled task creation of defendnot after binary execution.
 references:
   - https://github.com/es3n1n/defendnot
+  - https://www.huntress.com/blog/defendnot-detecting-malicious-security-product-bypass-techniques
 author: Tyler Bohlmann, Andrew Schwartz, Matt Anderson
 date: 2025-05-20
 tags:
