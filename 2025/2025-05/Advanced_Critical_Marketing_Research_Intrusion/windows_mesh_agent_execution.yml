@@ -3,8 +3,8 @@ id: 753d9010-fed7-425e-9d3a-0a5510024840
 status: experimental
 description: Detects Mesh Agent, the client software used to connect to a Mesh Central Server
 References:
-   - https://github.com/Ylianst/MeshCentral/blob/08430a5fa7b0227e8c84951cd06226e86f39943a/certoperations.jsnslookup
-author: Craig Sweeney
+   - https://github.com/Ylianst/MeshAgent
+author: Craig Sweeney, Matt Anderson
 date: 2025-05-27
 tags:
     - attack.command_and_control
@@ -14,7 +14,8 @@ logsource:
     product: windows
 detection:
     selection:
-        Company|contains: ’Meshcentralroot’
+        - Product: ’MeshCentral Agent’
+        - Description: 'MeshCentral Background Service Agent'
     condition: selection
 falsepositives:
     - Legitimate usage by System Administrators
