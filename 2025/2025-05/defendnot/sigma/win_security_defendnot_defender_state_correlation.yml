@@ -7,6 +7,7 @@ date: 2025-05-22
 references:
   - https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-security-center/
   - https://github.com/es3n1n/defendnot
+  - https://www.huntress.com/blog/defendnot-detecting-malicious-security-product-bypass-techniques
 logsource:
     product: windows
     service: application
