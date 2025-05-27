@@ -1,0 +1,52 @@
+title: Suspicious Image Load into taskmgr.exe with Invalid or Unsigned Modules (Sysmon)
+id: b8f4e2c1-9a2d-4c7b-a1f8-3e4b7c9d2f3a
+status: experimental
+description: Detects image load events (DLLs or modules) by taskmgr.exe (Windows Task Manager) in Sysmon logs from non-standard directories with unsigned modules or invalid signatures, indicating potential malicious activity such as DLL injection.  Used by Defendnot evasion tool that disables Windows Defender.
+author: Matt Anderson, Andrew Schwartz, Tyler Bohlmann
+date: 2025-05-21
+references:
+  - https://attack.mitre.org/techniques/T1055/
+  - https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon
+  - https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-security
+  - https://github.com/es3n1n/defendnot
+  - https://blog.es3n1n.eu/posts/how-i-ruined-my-vacation/
+  - https://www.huntress.com/blog/defendnot-detecting-malicious-security-product-bypass-techniques
+logsource:
+  category: image_load
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 7
+    Image|endswith: \taskmgr.exe
+  filter_legitimate:
+    ImageLoaded|startswith:
+      - C:\Windows\System32\
+      - C:\Windows\SysWOW64\
+      - C:\Windows\
+      - C:\Windows\System32\wbem\
+      - C:\Windows\System32\com\
+      - C:\Windows\System32\en-US\
+  selection_signature:
+    - Signed: false
+    - SignatureStatus|contains:
+        - Invalid
+        - UntrustedRoot
+        - Expired
+  condition: selection and not filter_legitimate and selection_signature
+fields:
+  - Image
+  - ImageLoaded
+  - Signed
+  - SignatureStatus
+  - ProcessId
+  - User
+falsepositives:
+  - Legitimate third-party tools or extensions loading unsigned or invalidly signed DLLs from non-standard directories
+  - Administrative troubleshooting or debugging tools
+level: high
+tags:
+  - attack.execution
+  - attack.t1055
+  - attack.t1562.001
+  - attack.defense-evasion

@@ -1,0 +1,23 @@
+title: Taskmgr Child Process of defendnot
+id: d4ce1024-710e-41ab-8de5-aad408bac1a8
+status: experimental
+description: Detects taskmgr.exe child process spawning from defendnot-loader.exe execution.
+references:
+  - https://github.com/es3n1n/defendnot
+  - https://www.huntress.com/blog/defendnot-detecting-malicious-security-product-bypass-techniques
+author: Tyler Bohlmann, Andrew Schwartz, Matt Anderson
+date: 2025-05-22
+tags:
+  - attack.defense-evasion
+  - attack.t1055
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    ParentImage|endswith: '\defendnot-loader.exe'
+    Image|endswith: '\taskmgr.exe'
+  condition: selection
+falsepositives:
+  - Unknown
+level: medium
