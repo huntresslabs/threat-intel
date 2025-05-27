@@ -1,0 +1,23 @@
+title: MsMpEng.exe Process Access defendnot loader
+id: 5d80958a-e7ec-4b0b-b597-a1d1b69f1562
+status: experimental
+description: Detects when MsMpEng.exe (Microsoft Defender Antimalware Service) queries information about other processes. This is generally normal behavior for an antivirus but is provided as per specific request.
+author: Matt Anderson, Andrew Schwartz
+date: 2025-05-22
+references:
+  - https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-10-processaccess
+  - https://www.huntress.com/blog/defendnot-detecting-malicious-security-product-bypass-techniques
+logsource:
+  product: windows
+  service: sysmon
+  eventtype: process_access
+detection:
+  selection:
+    EventID: 10
+    SourceImage|endswith: '\MsMpEng.exe'
+    TargetImage|endswith: '\defendnot-loader.exe'
+    GrantedAccess: '0x1000'
+  condition: selection
+level: informational
+tags:
+  - attack.execution
