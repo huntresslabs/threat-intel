@@ -1,0 +1,27 @@
+title: Updated Default defendnot Scheduled Task
+id: 803a67d4-7945-4cbe-b8cd-ce8c334da4c0
+status: experimental
+description: Detects the update of the default scheduled task creation of defendnot after binary execution.
+references:
+  - https://github.com/es3n1n/defendnot
+  - https://www.huntress.com/blog/defendnot-detecting-malicious-security-product-bypass-techniques
+author: Tyler Bohlmann, Andrew Schwartz, Matt Anderson
+date: 2025-05-20
+tags:
+  - attack.persistence
+  - attack.t1053.005
+logsource:
+  product: windows
+  service: security
+  definition: 'The Advanced Audit Policy setting Object Access > Audit Other Object Access Events has to be configured to allow this detection. We also recommend extracting the Command field from the embedded XML in the event data.'
+detection:
+  selection_id:
+    EventID: 4702
+  selection_path:
+    TaskContentNew|contains|all:
+      - 'defendnot'
+      - '--from-autorun'
+  condition: all of selection_*
+falsepositives:
+  - Unknown
+level: high

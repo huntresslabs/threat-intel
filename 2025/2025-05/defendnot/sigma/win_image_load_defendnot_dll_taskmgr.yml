@@ -1,0 +1,22 @@
+title: defendnot.dll Loaded Via Taskmgr
+id: 657104f9-6995-4f73-ae33-34e3bf01e051
+status: experimental
+description: Detects defendnot.dll being loaded by taskmgr.exe after initial defendnot-loader.exe execution.
+references:
+  - https://github.com/es3n1n/defendnot
+  - https://www.huntress.com/blog/defendnot-detecting-malicious-security-product-bypass-techniques
+author: Tyler Bohlmann, Andrew Schwartz, Matt Anderson
+date: 2025-05-22
+tags:
+  - attack.defense-evasion
+logsource:
+  category: image_load
+  product: windows
+detection:
+  selection:
+    ImageLoaded|endswith: '\defendnot.dll'
+    Image|endswith: '\taskmgr.exe'
+  condition: selection
+falsepositives:
+  - Unknown
+level: medium

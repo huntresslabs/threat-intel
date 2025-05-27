@@ -1,0 +1,54 @@
+title: defendnot Windows Defender State Toggle Events
+id: 833017cc-0fec-4e3c-8d62-19541d09d462
+description: Detects two different types of Event 15 from SecurityCenter occurring within 5 seconds - one with STATE_OFF and another with STATE_ON
+status: experimental
+author: Tyler Bohlmann, Andrew Schwartz, Matt Anderson
+date: 2025-05-22
+references:
+  - https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-security-center/
+  - https://github.com/es3n1n/defendnot
+  - https://www.huntress.com/blog/defendnot-detecting-malicious-security-product-bypass-techniques
+logsource:
+    product: windows
+    service: application
+    definition: 'Windows Application Event Log'
+detection:
+  selection_base:
+    EventID: 15
+    Source: 'SecurityCenter'
+  selection_state_off:
+    EventData|contains: 'SECURITY_PRODUCT_STATE_OFF'
+  selection_state_on:
+    EventData|contains: 'SECURITY_PRODUCT_STATE_ON'
+  selection_github:
+    EventData|contains: 'https://github.com/es3n1n/defendnot'
+  condition: selection_base and ((selection_state_off) or (selection_state_on and selection_github))
+falsepositives:
+  - Legitimate Windows Defender configuration changes
+  - Security software updates or restarts
+  - Administrative security policy modifications
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1562.001
+---
+title: defendnot Windows Defender State Toggle Events (Event 15 Correlation)
+status: experimental
+correlation:
+  type: value_count
+  rules:
+    - defendnot Windows Defender State Toggle Events
+  group-by:
+    - EventData
+  timespan: 5s
+  condition:
+    gte: 2
+    field: EventData
+falsepositives:
+  - Legitimate Windows Defender configuration changes
+  - Security software updates or restarts
+  - Administrative security policy modifications
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.001

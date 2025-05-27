@@ -1,0 +1,22 @@
+title: defendnot File Creation
+id: 029fe628-7ebc-4db9-812d-b38e5a7f173c
+status: experimental
+description: Detects the ctx.bin file that gets created after the defendnot-loader.exe binary is executed.
+references:
+  - https://github.com/es3n1n/defendnot
+  - https://www.huntress.com/blog/defendnot-detecting-malicious-security-product-bypass-techniques
+author: Tyler Bohlmann, Andrew Schwartz, Matt Anderson
+date: 2025-05-22
+tags:
+  - attack.defense-evasion
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\defendnot-loader.exe'
+    TargetFilename|endswith: '\ctx.bin'
+  condition: selection
+falsepositives:
+  - Unknown
+level: medium
