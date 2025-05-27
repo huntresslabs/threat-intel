@@ -1,0 +1,23 @@
+title: defendnot Execution
+id: 1d1b35be-128d-434d-b9fd-54b77ec849c6
+status: experimental
+description: Detects the execution of defendnot-loader.exe.
+references:
+  - https://github.com/es3n1n/defendnot
+  - https://www.huntress.com/blog/defendnot-detecting-malicious-security-product-bypass-techniques
+author: Tyler Bohlmann, Andrew Schwartz, Matt Anderson
+date: 2025-05-22
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    - Image|endswith: '\defendnot-loader.exe'
+    - CommandLine|contains: 'defendnot-loader.exe'
+  condition: selection
+falsepositives:
+  - Unknown
+level: medium
+tags:
+  - attack.execution
+  - attack.t1059.003
