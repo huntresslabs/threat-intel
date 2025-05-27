@@ -10,6 +10,7 @@ references:
   - https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-security
   - https://github.com/es3n1n/defendnot
   - https://blog.es3n1n.eu/posts/how-i-ruined-my-vacation/
+  - https://www.huntress.com/blog/defendnot-detecting-malicious-security-product-bypass-techniques
 logsource:
   category: image_load
   product: windows

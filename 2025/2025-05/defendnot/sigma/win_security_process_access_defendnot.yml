@@ -6,6 +6,7 @@ author: Matt Anderson, Andrew Schwartz
 date: 2025-05-22
 references:
   - https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-10-processaccess
+  - https://www.huntress.com/blog/defendnot-detecting-malicious-security-product-bypass-techniques
 logsource:
   product: windows
   service: sysmon
