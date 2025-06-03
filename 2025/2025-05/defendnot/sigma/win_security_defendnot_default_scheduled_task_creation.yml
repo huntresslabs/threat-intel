@@ -1,4 +1,3 @@
-
 title: Defendnot Scheduled Task Creation - Security
 id: 3156aabd-474b-408e-8fc5-f9a92e026cd1
 status: experimental
@@ -8,6 +7,7 @@ references:
     - https://www.huntress.com/blog/defendnot-detecting-malicious-security-product-bypass-techniques
 author: Matt Anderson
 date: 2025-05-22
+modified: 2025-06-03
 logsource:
     product: windows
     service: security
@@ -18,7 +18,7 @@ detection:
             - "defendnot"
             - "autorun"
             - "Loader"
-        CommandLine|contains:
+        TaskContent|contains:
             - "defendnot"
             - "--from-autorun"
             - "defendnot-loader"
@@ -27,7 +27,7 @@ detection:
 fields:
     - SubjectUserName
     - TaskName
-    - CommandLine
+    - TaskContent
     - ProcessId
     - ComputerName
 falsepositives:
