@@ -1,0 +1,32 @@
+title: Disabling ELAM drivers via BCDEdit.exe
+id: 0aa12a68-f55a-4b93-ba80-4c1627426b3c
+status: experimental
+description: |
+    Detects the use of bcdedit.exe to disable the Early Launch Antimalware (ELAM) drivers. Early launch anti-malware (ELAM) provides protection 
+    for the computers in your network when they start up and before third-party drivers initialize. Malicious software can load as a driver or 
+    rootkits might attack before the operating system completely loads.
+references:
+    - https://learn.microsoft.com/en-us/windows-hardware/drivers/install/early-launch-antimalware
+    - https://learn.microsoft.com/en-us/windows-hardware/drivers/devtest/bcdedit--set
+author: Tyler Bohlmann (Huntress)
+date: 2025-07-18
+tags:
+    - attack.defense-evasion
+    - attack.t1562.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\bcdedit.exe'
+        - OriginalFileName: 'bcdedit.exe'
+    selection_cmd:
+        CommandLine|contains|all:
+            - '/set'
+            - '{current}'
+            - 'disableelamdrivers'
+            - 'yes'
+    condition: all of selection_*
+falsepositives:
+    - Highly unlikely
+level: high
