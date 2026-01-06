@@ -1,10 +1,10 @@
-title: DevCon Execution Disabling VMware VMCI Device
+title: Devcon Execution Disabling VMware VMCI Device
 id: b2c3d4e5-6f7a-8b9c-0d1e-2f3a4b5c6d7e
 status: experimental
 description: |
   Detects execution of devcon.exe with commands that disable the VMware Virtual Machine Communication Interface (VMCI) device.
   This can be legitimate during VMware Tools troubleshooting or driver conflicts, but may also indicate malware attempting
-  to hijack communication with the hardware via the VMCI device.
+  to hijack communication with the hardware via the VMCI device. This has been used to facilitate VMware ESXi vulnerability exploits to escape VMs and execute code on the ESXi host.
 author: Matt Anderson, Dray Agha, Anna Pham (Huntress)
 date: 2026-01-02
 references:

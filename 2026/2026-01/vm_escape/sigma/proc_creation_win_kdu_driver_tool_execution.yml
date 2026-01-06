@@ -2,7 +2,7 @@ title: Kernel Driver Utility Execution
 id: e76ca062-4de0-4d79-8d90-160a0d335eca
 status: experimental
 description: |
-  Detects execution of the Kernel Driver Utility (KDU) tool, which may be used by threat actors to load or manipulate kernel drivers.
+  Detects execution of the Kernel Driver Utility (KDU) tool. KDU can be used to bypass driver signature enforcement and load unsigned or malicious drivers into the Windows kernel, potentially allowing for privilege escalation, persistence, or evasion of security controls.
 author: Matt Anderson, Dray Agha, Anna Pham (Huntress)
 date: 2026/01/02
 references:
