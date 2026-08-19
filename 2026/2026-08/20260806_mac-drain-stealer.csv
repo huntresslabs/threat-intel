@@ -1,0 +1,26 @@
+﻿type,data,info
+description,https://www.huntress.com/blog/mac-crypto-draining-malware, Indicators associated with a macOS stealer malware
+ip,77.221.152[.]34,malware host
+ip,193.29.224[.]151,malware host
+ip,138.124.118[.]69,C2
+ip_port,138.124.118[.]69:8133,C2 with port number
+file_path,$HOME/Library/Caches/com.apple.trustd/com.apple.verified,Location where malware copies itself
+path,$HOME/Library/Caches/com.apple.trustd,Location where malware copies itself
+url,http://193.29.224[.]151/92392991a0cca55?force=1,payload delivery URL
+sha256,b43a909a01e954d6549558f2f7e9bb58e34959a0ae229f340d61091ab726bbd3,malware
+sha256,f0062f7e70e61493684a2f60748a475168e155bc2502163c844c42e87692abd0,malware payload for ARM architecture
+sha256,619a99ba4ee9d7f33db8045c7e03c4265424977993fe8a53b0f45157c5abd3e5,malwae payload for Intel architecture
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
