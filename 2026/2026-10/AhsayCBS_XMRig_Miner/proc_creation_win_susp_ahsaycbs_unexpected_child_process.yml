@@ -1,0 +1,46 @@
+title: Unexpected Child Process from AhsayCBS Service
+id: c9dd3dd5-c59e-4cdb-a3bc-e17550ff40c0
+status: experimental
+description: |
+  Detects the AhsayCBS backup server service, cbssvcX64.exe or cbssvcX86.exe, spawning a process outside
+  its startup and maintenance baseline. AhsayCBS hosts its Tomcat web app in-process, so commands from an
+  uploaded JSP webshell run as direct children of the service. Treat as webshell execution until disproven.
+author: Matt Anderson (Huntress)
+references:
+  - https://attack.mitre.org/techniques/T1190/
+  - https://attack.mitre.org/techniques/T1505/003/
+date: 2026-10-08
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    ParentImage|endswith:
+      - '\cbssvcX64.exe'
+      - '\cbssvcX86.exe'
+  filter_product_images:
+    Image|endswith:
+      - '\7za.exe'
+      - '\rotatelogs.exe'
+      - '\conhost.exe'
+      - '\java.exe'
+      - '\cbssvcX64.exe'
+      - '\cbssvcX86.exe'
+  # Startup probes the service runs on every start
+  filter_startup_probes:
+    CommandLine|re: '(?i)(cmd\.exe /c (ipconfig /all|ver|uname -i)|ipconfig +/all)'
+  filter_migrate:
+    CommandLine|re: '(?i)cmd\.exe /c bin\\MigrateV7\.bat >\.\\MigrateV7\.log'
+  filter_backup_job:
+    CommandLine|re: '(?i)cmd\.exe /c ""[a-z]:\\program files( \(x86\))?\\ahsaycbs\\java\\bin\\java" -xm.*'
+  condition: selection and not 1 of filter_*
+falsepositives:
+  - AhsayCBS releases that add new startup commands
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1190
+  - attack.persistence
+  - attack.t1505.003
+  - attack.execution
+  - attack.t1059.003

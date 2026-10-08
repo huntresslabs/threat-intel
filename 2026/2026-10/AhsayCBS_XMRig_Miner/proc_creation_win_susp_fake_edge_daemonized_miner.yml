@@ -1,0 +1,32 @@
+title: Fake Edge Binary Launched with Daemonized Flag
+id: d4842d27-ec2c-43a7-a5d3-e5a174010482
+status: experimental
+description: |
+  Detects a cryptominer masquerading as Microsoft Edge, where an Edge-named binary carries the
+  msedge_exe original file name or runs as a background daemon instead of a browser.
+  Check for the MicrosoftEdgeUpdateSvc and EdgeUpdateHelper services and Taskgmr.ps1 in the temp directory.
+author: Matt Anderson (Huntress)
+references:
+  - https://attack.mitre.org/techniques/T1036/005/
+  - https://attack.mitre.org/techniques/T1496/
+date: 2026-10-08
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_original_name:
+    OriginalFileName: 'msedge_exe'
+  selection_daemonized:
+    Image|endswith:
+      - '\edge.exe'
+      - '\msedge.exe'
+    CommandLine|contains: '--daemonized'
+  condition: 1 of selection_*
+falsepositives:
+  - None known
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1036.005
+  - attack.impact
+  - attack.t1496
