@@ -1,0 +1,34 @@
+title: PowerShell Scriptblock - Task Manager Aware Service Control
+id: 7a3e9c52-4d1b-4f86-9b0e-5c2d8a61f4e3
+status: experimental
+description: |
+  Detects a PowerShell ScriptBlock that watches for Task Manager and stops or starts a service
+  depending on whether it is open. Cryptominer operators use this pattern to hide the miner service
+  from users who go looking for high CPU usage.
+  Check the ScriptBlock for the service name and look for that service's binary path and creation event.
+author: Tyler Bohlmann (Huntress)
+references:
+  - https://attack.mitre.org/techniques/T1564/
+  - https://attack.mitre.org/techniques/T1496/
+date: 2026-10-08
+logsource:
+  category: ps_script
+  product: windows
+detection:
+  selection_taskmgr:
+    ScriptBlockText|contains: 'taskmgr'
+  selection_service_control:
+    ScriptBlockText|contains|all:
+      - 'Stop-Service'
+      - 'Start-Service'
+  condition: all of selection_*
+falsepositives:
+  - Administrative scripts that coordinate service state with Task Manager
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1564
+  - attack.impact
+  - attack.t1496
+  - attack.execution
+  - attack.t1059.001
