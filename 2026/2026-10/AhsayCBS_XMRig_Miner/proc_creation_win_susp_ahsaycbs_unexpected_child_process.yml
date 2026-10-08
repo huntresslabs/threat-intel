@@ -28,11 +28,11 @@ detection:
       - '\cbssvcX86.exe'
   # Startup probes the service runs on every start
   filter_startup_probes:
-    CommandLine|re: '(?i)(cmd\.exe /c (ipconfig /all|ver|uname -i)|ipconfig +/all)'
+    CommandLine|re: '(?i)^("?([a-z]:\\windows\\system32\\)?cmd\.exe"? /c (ipconfig /all|ver|uname -i)|ipconfig +/all)\s*$'
   filter_migrate:
-    CommandLine|re: '(?i)cmd\.exe /c bin\\MigrateV7\.bat >\.\\MigrateV7\.log'
+    CommandLine|re: '(?i)^cmd\.exe /c bin\\MigrateV7\.bat >\.\\MigrateV7\.log\s*$'
   filter_backup_job:
-    CommandLine|re: '(?i)cmd\.exe /c ""[a-z]:\\program files( \(x86\))?\\ahsaycbs\\java\\bin\\java" -xm.*'
+    CommandLine|re: '(?i)^cmd\.exe /c ""[a-z]:\\program files( \(x86\))?\\ahsaycbs\\java\\bin\\java" -xm[^&|;]*$'
   condition: selection and not 1 of filter_*
 falsepositives:
   - AhsayCBS releases that add new startup commands
