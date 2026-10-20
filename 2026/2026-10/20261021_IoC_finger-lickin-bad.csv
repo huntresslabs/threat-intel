@@ -1,0 +1,34 @@
+type,data,info
+description,https://huntress.com/blog/amazon-clickfix-finger,Indicators from components of a ClickFix attack
+domain,ashevilleroofingcontractor[.]com,Mac payload source
+domain,embersandbites[.]com,C2
+domain,grillmasterchef[.]com,C2
+domain,grillrecipespro[.]com,C2
+domain,homelygrill[.]com,C2
+domain,kiriosyka[.]com,payload source
+domain,liokida[.]com,payload source
+domain,orders-amazon-com.advancedfences[.]com,ClickFix URL
+domain,perfectgrillrecipes[.]com,C2
+domain,thegrilljournal[.]com,C2
+url,hxxps://167[.]148.201.106:725/fakeurl.htm,NetSupport C2
+url,hxxps://grillmasterchef[.]com/90e4a147-1234-505c-a024-062e543b5df8/timer6,"""timer6"" payload URL"
+url,hxxps://grillmasterchef[.]com/90e4a147-1234-505c-a024-062e543b5df8/v6,"""v6"" payload URL"
+url,hxxps://kiriosyka[.]com/KsxmmKiN5N0j/sqr-viewertr6,Lumma Stealer and reflective loader package
+url,hxxps://liokida[.]com/KsxmmKiN5N0j/sqr-viewertr6z,Lumma Stealer and reflective loader package
+ip,167[.]148.201.106,NetSupport C2 address
+port,725/tcp,NetSupport port
+port,79/tcp,finger port
+ip_port,167[.]148.201.106:725,NetSupport C2
+filename,1572cef1-df62-4594-a3aa-a9db91b9d7db.tmp,Lumma payload
+filename,29d37679-4112-4751-8613-15b94b29ad39.tmp,Lumma payload
+filename,545b93c2-e4f7-4397-b32c-8a3c77538594.tmp,Lumma payload
+filename,754224f2-3449-4ac7-8b13-1cb8e6af6408.tmp,Lumma payload
+filename,finger.exe,finger utility
+filename,Nodeview.zip,Lumma package zip
+file_path,C:\ProgramData\NodeView,Lumma package delivery location
+sha256,24a293a662600b2292d9259baebba1c09b41df82a5c9c20f8572625ae759696f,Lumma Stealer payload - decrypted
+sha256,408b7fc4f08f2a9044046025f05995e8cbd5c96c39844aaa8a7eb8ee4697ea89,Lumma Stealer payload - decrypted
+sha256,42527a4388ef4ade6f4eaf52706f0ab31cb4e9ced3a56a6b15402551f9f01208,Lumma Stealer payload - decrypted
+sha256,b8419a676a3d4af04ea98287a2b85052fae5c06e6278ca9d8bfa4b5b396b39a6,Lumma Stealer payload - decrypted
+sha256,d864b28c302db9ed10baf8def0fb26bac0b97d27349d22c4e9390d30fce54649,Python reflective loader/process hollowing script
+user_agent,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36),User-Agent employed during the attack
